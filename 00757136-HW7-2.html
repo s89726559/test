@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Local Storage</title>
+    <style type="text/CSS">
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            background-color: lightblue;
+            font-family: Perpetua;
+        }
+
+        table, td, th {
+            border: 1px solid black;
+            padding: 4px;
+        }
+
+        th {
+            text-align: center;
+            color: white;
+            background-color: darkblue;
+        }
+
+        tr.oddrow {
+            background-color: white;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        // TODO
+        function display() {
+            let keys = Object.keys(localStorage);
+            let display = document.getElementById("display");
+            let msg = "<table><tr><th>title</th><th>author</th><th>year</th><th>url</th></tr>";
+            for (let i = 0; i < keys.length; i++) {
+                let temp = JSON.parse(localStorage.getItem(keys[i]));
+                console.log(temp);
+                msg += '<tr><td>' + temp.title + '</td>';
+                msg += '<td>' + temp.author + '</td>';
+                msg += '<td>' + temp.year + '</td>';
+                msg += '<td>' + temp.url + '</td></tr>';
+            }
+            msg += '</table>';
+            display.innerHTML = msg;
+        }
+
+        function addItem() {
+            let now = new Date();
+            let title = document.getElementById("title");
+            let author = document.getElementById("author");
+            let year = document.getElementById("year");
+            let url = document.getElementById("url");
+            //json format
+            let key = "ntou-" + now.getTime();
+            let value = '{\"title\":\"' + title.value+'\",\"author\":\"'+author.value+'\",\"year\":\"'+year.value+'\",\"url\":\"'+url.value+'\"}';
+            console.log(value);
+            //localStorage
+            localStorage.setItem(key, value);
+            //display
+            display();
+        }
+
+        function removeAll() {
+            localStorage.clear();
+            display();
+            alert("All items were removed");
+        }
+
+        function start() {
+            let add = document.getElementById("addButton");
+            let remove = document.getElementById("removeAllButton");
+            add.addEventListener("click", addItem);
+            remove.addEventListener("click", removeAll);
+            display();
+        }
+
+        window.addEventListener("load", start, false);
+
+    </script>
+</head>
+
+<body>
+    <form action="#">
+        <p>
+            <label>Book Title:</label>
+            <input type="text" id="title">
+            <label>Author(s):</label>
+            <input type="text" id="author">
+            <label>Year:</label>
+            <input type="number" id="year">
+            <label>Book URL:</label>
+            <input type="url" id="url" value="https://s89726559.github.io/test/00757136-HW7-2.html">
+        </p>
+        <p>
+            <input type="button" value="Add New Item" id="addButton">
+            <input type="button" value="Remove All Items" id="removeAllButton">
+        </p>
+    </form>
+    <hr>
+    <div id="display">
+    </div>
+</body>
+<!--
+{"title":"Domain-Driven Design: Tackling Complexity in the Heart of Software",
+"author":"Ross Venables",
+"year":"2003",
+"url":"https://www.amazon.com/-
+/zh_TW/dp/0321125215/ref=sr_1_4?dchild=1&keywords=DDD&qid=1605534390&sr=8-4"}
+-->
+</html>
