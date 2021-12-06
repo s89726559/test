@@ -43,7 +43,7 @@
                 msg += '<tr><td>' + temp.title + '</td>';
                 msg += '<td>' + temp.author + '</td>';
                 msg += '<td>' + temp.year + '</td>';
-                msg += '<td>' + temp.url + '</td></tr>';
+                msg += '<td><a href=\"' + temp.url + '\" target="_blank">'+temp.url+'</a></td></tr>';
             }
             msg += '</table>';
             display.innerHTML = msg;
